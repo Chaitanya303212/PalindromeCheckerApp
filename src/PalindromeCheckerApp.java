@@ -2,33 +2,43 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    // Recursive function
-    public static boolean isPalindromeRecursive(String str, int start, int end) {
+    public static boolean isPalindromeTwoPointer(String text) {
 
-        // Base condition
-        if (start >= end)
-            return true;
+        int left = 0;
+        int right = text.length() - 1;
 
-        // Compare characters
-        if (str.charAt(start) != str.charAt(end))
-            return false;
+        while (left < right) {
 
-        // Recursive call
-        return isPalindromeRecursive(str, start + 1, end - 1);
+            while (left < right && !Character.isLetterOrDigit(text.charAt(left))) {
+                left++;
+            }
+
+            while (left < right && !Character.isLetterOrDigit(text.charAt(right))) {
+                right--;
+            }
+
+            if (Character.toLowerCase(text.charAt(left)) !=
+                Character.toLowerCase(text.charAt(right))) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
+        System.out.print("Enter text: ");
         String text = sc.nextLine();
 
-        boolean result = isPalindromeRecursive(text, 0, text.length() - 1);
-
-        if (result)
-            System.out.println("It is a Palindrome");
+        if (isPalindromeTwoPointer(text))
+            System.out.println("Palindrome");
         else
-            System.out.println("Not a Palindrome");
+            System.out.println("Not Palindrome");
     }
 }
